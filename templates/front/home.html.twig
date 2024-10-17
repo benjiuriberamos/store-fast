@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: 0;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 10mm;
+            margin-top: 20mm;
+        }
+
+        @media print { 
+            
+            header {
+                position: fixed;
+            }
+
+            footer {
+                position: fixed;
+            }
+
+            .page {
+                padding-top: 40px;
+                page-break-before: always;
+                page-break-inside: avoid;
+            }
+
+            
+                
+        }
+        header {
+            top: 15px;
+            text-align: center;
+            width: 100%;
+            margin: 0;
+        }
+
+        footer {
+            bottom: 15px;
+            text-align: center;
+            width: 100%;
+            margin: 0;
+        }
+
+        .content {
+            display: flex;
+            position: relative;
+            justify-content: space-around;
+            height: 350px;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .content-image img{
+            height: 100%;
+            position: relative;
+            box-shadow: 10;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Fuegos artificiales</h1>
+    </header>
+    <main>
+        {% for page in products %}
+        <div class="page">
+            {% for product in page %}
+            <div class="content">
+                <div class="content-text">
+                    <h3>{{ product.name }}</h3>
+
+                    {{ product.price }}
+
+                    {% for otherprice in product.prices %}
+                    <p>{{otherprice}}</p>
+                    {% endfor %}
+                    
+                    {{ product.description|raw }}
+                </div>
+                {% if product.images %}
+                <div class="content-image">
+                    <img src="{{product.images[0]|image_path}}" alt="">
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+    </main>
+    <footer>
+        <h3>Esribeme al +51 954775880</h3>
+    </footer>
+</body>
+</html>

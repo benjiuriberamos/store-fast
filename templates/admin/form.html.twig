@@ -1,0 +1,29 @@
+{% block filebrowser_widget %}
+    {% apply spaceless %}
+        {% set path = value|image_path %}
+        {% set alt = value|image_alt %}
+        {% set f_id = form.children.path.vars.id %}
+        <div class="media" id="t_{{ f_id }}">
+            {{ form_widget(form.children.path) }}
+            {{ form_widget(form.children.alt) }}
+            <div class="media-body">
+                <p class="image_name {{ not path ? 'd-none' }}">{{ path }}</p>
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-light open-filebrowser" data-return="{{ f_id }}">
+                        <i class="fa fa-list"></i>
+                        <span class="hidden-xs"> Ver galería</span>
+                    </button>
+                    <button type="button" class="btn btn-light fancybox {% if not path or path|extension not in ['png', 'gif', 'jpg', 'jpeg', 'svg'] %}d-none{% endif %}" data-fancybox name="button" href="{% if path %}{{ asset(path) }}{% endif %}">
+                        <i class="fa fa-eye"></i>
+                    </button>
+                    <button type="button" class="btn btn-light list {% if not path %}d-none{% endif %}" name="button" data-id="{{ f_id }}">
+                        <i class="fa fa-list"></i>
+                    </button>
+                    <button type="button" class="btn btn-danger trash {% if not path %}d-none{% endif %}" name="button" data-id="{{ f_id }}">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    {% endapply %}
+{% endblock %}

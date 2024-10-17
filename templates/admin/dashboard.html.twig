@@ -1,0 +1,28 @@
+{# templates/admin/my_dashboard.html.twig #}
+
+{% extends '@!EasyAdmin/layout.html.twig' %}
+
+{% block head_stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('plugins/dropzone/min/dropzone.min.css') }}">
+{% endblock head_stylesheets %}
+
+
+{% block body_javascript %}
+    {% include 'admin/types/filebrowser.html.twig' %}
+    <script type="text/javascript" src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/custom/script.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/loader/jquery.preloaders.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('plugins/dropzone/min/dropzone.min.js') }}"></script>
+    <script>
+        Dropzone.autoDiscover = false;
+        const pathListFilemanager = '{{ path('admin_filemanager_list') }}';
+        const pathCreateFolderFilemanager = '{{ path('admin_filemanager_create_folder') }}';
+        const pathUploadFile = '{{ path('admin_filemanager_upload') }}';
+        const pathDeleteFilemanager = '{{ path('admin_filemanager_delete') }}';
+        const asset_url = '{{ asset('') }}';
+        let PATH;
+    </script>
+    <script src="{{ asset('plugins/custom/filemanager.js') }}"></script>
+
+{% endblock body_javascript %}
